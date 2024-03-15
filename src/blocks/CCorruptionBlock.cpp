@@ -13,10 +13,11 @@ std::unique_ptr<CAction> CCorruptionBlock::action(std::unique_ptr<CBlock> &activ
 }
 
 bool CCorruptionBlock::update() {
-    return false;
+    return true;
 }
 
-bool CCorruptionBlock::refresh(std::vector<std::vector<std::unique_ptr<CBlock>>> &map, SPos pos) {
+bool CCorruptionBlock::refresh(std::vector<std::vector<std::unique_ptr<CBlock>>> &map,
+                               SPos                                               pos) {
     std::random_device random;
     std::default_random_engine gen(random());
     // 5% chance to spread

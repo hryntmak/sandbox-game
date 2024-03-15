@@ -7,25 +7,27 @@
 #ifndef HRYNTMAK_CSTATS_H
 #define HRYNTMAK_CSTATS_H
 
-
-class CState {
+/**
+ * Class for player stats.
+ */
+class SState {
 public:
     /**
      * Default constructor.
      */
-    CState();
+    SState();
     /**
      * Construct State with config from input stream.
      * @param in Input stream.
      */
-    explicit CState(std::istream &in);
+    explicit SState(std::istream &in);
     /**
      * Operator for print.
      * @param out Output stream.
      * @param progtest Progtest for print.
      * @return Reference to the output stream.
      */
-    friend std::ostream &operator<<(std::ostream &out, const CState &state);
+    friend std::ostream &operator<<(std::ostream &out, const SState &state);
 
 
     /**

@@ -6,9 +6,11 @@
 #include "../actions/CNoAction.h"
 #include "../actions/CEnergyAction.h"
 
-CMushroomBlock::CMushroomBlock() : CBlock('.', 0, 0, 0, false), m_DayToGrowUp(1) {}
+CMushroomBlock::CMushroomBlock() : CBlock('.', 0, 0, 0, false),
+                                   m_DayToGrowUp(1) {}
 
-CMushroomBlock::CMushroomBlock(char c) : CBlock(c, 0, 0, 0, false), m_DayToGrowUp(1) {
+CMushroomBlock::CMushroomBlock(char c) : CBlock(c, 0, 0, 0, false),
+                                         m_DayToGrowUp(1) {
     if (c == '?') {
         m_DayToGrowUp = 0;
         update();
@@ -38,6 +40,7 @@ bool CMushroomBlock::update() {
     return true;
 }
 
-bool CMushroomBlock::refresh(std::vector<std::vector<std::unique_ptr<CBlock>>> &map, SPos pos) {
+bool CMushroomBlock::refresh(std::vector<std::vector<std::unique_ptr<CBlock>>> &map,
+                             SPos                                               pos) {
     return false;
 }

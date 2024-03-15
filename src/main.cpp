@@ -4,6 +4,7 @@
 int main(int argc, char* argv[]) {
     try {
         CApplication app;
+        // If an argument was received, pass it, otherwise pass an empty string
         app.run(argc > 1 ? argv[1] : "");
         return 0;
     } catch ( const std::ios::failure & exception ) {

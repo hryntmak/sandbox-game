@@ -4,8 +4,9 @@
 
 #include "CAction.h"
 
-bool CAction::activate(CState &stats, CProgtest &progtest) {
-    bool statsFlag = changeStats(stats);
+bool CAction::activate(SState    &stats,
+                       SProgtest &progtest) {
+    bool statsFlag    = changeStats(stats);
     bool progtestFlag = changeProgtest(progtest);
     return statsFlag || progtestFlag;
 }

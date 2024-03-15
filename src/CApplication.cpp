@@ -11,6 +11,7 @@
 CApplication::CApplication() = default;
 
 void CApplication::run(std::string path) {
+    // The path to the config file can be received in program arguments
     if (!path.empty()) {
         std::ifstream in(path);
         if ( in.fail() )
@@ -20,9 +21,9 @@ void CApplication::run(std::string path) {
         return;
     }
 
+    //Enable reading of each character
     termios term;
     tcgetattr(STDIN_FILENO, &term);
-    //Enable reading of each character
     term.c_lflag &= ~(ECHO | ICANON);
     tcsetattr(STDIN_FILENO, TCSANOW, &term);
 

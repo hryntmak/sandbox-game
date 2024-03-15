@@ -8,6 +8,10 @@
 #define HRYNTMAK_CSUBMITPROGTEST_H
 
 
+/**
+ * Descendant of an abstract class CAction.
+ * Implements submiting progtest.
+ */
 class CSubmitProgtest : public CAction {
 public:
     /**
@@ -17,19 +21,20 @@ public:
      * @param progtest Reference to the changing progtest
      * @return Success of the action
      */
-    bool activate(CState &stats, CProgtest &progtest) override;
+    bool activate(SState    &stats,
+                  SProgtest &progtest) override;
     /**
      * Does nothing.
      * @param stats Reference to the changing stats
      * @return Always false.
      */
-    bool changeStats(CState &stats) override;
+    bool changeStats(SState &stats) override;
     /**
      * Try to submit the progtest.
      * @param progtest Reference to the changing progtest
      * @return Success of the action
      */
-    bool changeProgtest(CProgtest &progtest) override;
+    bool changeProgtest(SProgtest &progtest) override;
 };
 
 

@@ -8,7 +8,9 @@
 #ifndef HRYNTMAK_CCONFIG_H
 #define HRYNTMAK_CCONFIG_H
 
-
+/**
+ * Support class for working with the configuration file.
+ */
 class CConfig {
 public:
     /**
@@ -32,7 +34,9 @@ public:
      * @param max Limit for config number
      * @return Double from config line
      */
-    static double getDouble(std::istream &in, const std::string & expected, double max = std::numeric_limits<double>::max());
+    static double getDouble(std::istream      &in,
+                            const std::string &expected,
+                            double             max = std::numeric_limits<double>::max());
     /**
      * Get one line from output stream.
      * Check for the correctness of the configuration
@@ -42,7 +46,9 @@ public:
      * @param max Limit for config number
      * @return Integer from config line
      */
-    static int getInteger(std::istream &in, const std::string & expected, int max = std::numeric_limits<int>::max());
+    static int getInteger(std::istream      &in,
+                          const std::string &expected,
+                          int                max = std::numeric_limits<int>::max());
 };
 
 

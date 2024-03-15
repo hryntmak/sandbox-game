@@ -8,6 +8,10 @@
 #define HRYNTMAK_CSOLIDBLOCK_H
 
 
+/**
+ * Descendant of an abstract class CBlock.
+ * Implementation of the ordinary solid block.
+ */
 class CSolidBlock : public CBlock {
 public:
     /**
@@ -22,9 +26,9 @@ public:
      * @param toolLvl Integer for tool level
      */
     CSolidBlock(char icon,
-                int hardness,
-                int energy,
-                int toolLvl);
+                int  hardness,
+                int  energy,
+                int  toolLvl);
     /**
      * Does nothing.
      * @param activeItem Block, that will not be used for this action
@@ -42,7 +46,8 @@ public:
      * @param pos Position of the block
      * @return Always False - hasn't change the map
      */
-    bool refresh(std::vector<std::vector<std::unique_ptr<CBlock>>> &map, SPos pos) override;
+    bool refresh(std::vector<std::vector<std::unique_ptr<CBlock>>> &map,
+                 SPos                                               pos) override;
 };
 
 

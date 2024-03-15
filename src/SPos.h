@@ -38,11 +38,11 @@ struct SPos {
      */
     bool operator != (const SPos & other) const;
 
-    /*
+    /**
      * X(horizontal) coordinate
      */
     int x;
-    /*
+    /**
      * Y(vertical) coordinate
      */
     int y;

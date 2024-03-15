@@ -7,6 +7,11 @@
 #ifndef HRYNTMAK_CWATERBLOCK_H
 #define HRYNTMAK_CWATERBLOCK_H
 
+
+/**
+ * Descendant of an abstract class CBlock.
+ * Implementation of the water block.
+ */
 class CWaterBlock : public CBlock {
 public:
     /**
@@ -36,14 +41,15 @@ public:
      * @param pos Position of the block
      * @return True - Water has spread. False - Water hasn't change the map
      */
-    bool refresh(std::vector<std::vector<std::unique_ptr<CBlock>>> &map, SPos pos) override;
+    bool refresh(std::vector<std::vector<std::unique_ptr<CBlock>>> &map,
+                 SPos                                               pos) override;
     /**
      * Print the block like for config file
      * @return Char of the block
      */
     void printConfig(std::ostream &out) const override;
 private:
-    /*
+    /**
      * Number of blocks on which water can spread
      */
     int m_SourcePower;

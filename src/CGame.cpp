@@ -13,7 +13,8 @@
 #include <memory>
 #include <utility>
 
-std::string CGame::accum(std::istream &in, int n) {
+std::string CGame::accum(std::istream &in,
+                         int           n) {
     std::string accumulate;
     std::string line; // line in map
     for (int i = 0; i < n; ++i) {
@@ -56,7 +57,7 @@ CGame::CGame(std::string configFile) : m_ConfigFile(std::move(configFile)),
         if (word == "progtest:") {
             std::string accumulated = accum(in, 8);
             std::istringstream iss (accumulated);
-            m_Progtest = CProgtest(iss);
+            m_Progtest = SProgtest(iss);
         } else {
             throw std::logic_error("Progtest isn't in config file or bad order");
         }
@@ -64,7 +65,7 @@ CGame::CGame(std::string configFile) : m_ConfigFile(std::move(configFile)),
         if (word == "stats:") {
             std::string accumulate = accum(in, 4);
             std::istringstream iss (accumulate);
-            m_Stats = CState(iss);
+            m_Stats = SState(iss);
         } else {
             throw std::logic_error("Stats isn't in config file or bad order");
         }
@@ -78,15 +79,17 @@ void CGame::start() {
     tcgetattr(STDIN_FILENO, &term);
     term.c_lflag &= ~(ECHO | ICANON);
     tcsetattr(STDIN_FILENO, TCSANOW, &term);
+
     std::cout << m_Map << std::endl;
     std::cout << m_Stats << std::endl;
     std::cout << m_Progtest << std::endl;
+
     char c;
     while(std::cin >> c) {
         std::unique_ptr<CAction> action = std::make_unique<CNoAction>();
         if (std::cin.eof()) {
             save();
-            std::cout << "Game was saved and end." << std::endl;
+            std::cout << "Game was saved and ended." << std::endl;
             // Disable reading of each character
             term.c_lflag |= ECHO | ICANON;
             tcsetattr(STDIN_FILENO, TCSANOW, &term);
@@ -167,7 +170,7 @@ void CGame::start() {
         std::cout << m_Progtest << std::endl;
         if (m_Progtest.m_Deadline == 0
          || m_Progtest.m_Attempts == m_Progtest.m_MaxAttempts
-         || m_Stats.m_Lives == 0) {
+         || m_Stats.m_Lives       == 0) {
             // Disable reading of each character
             term.c_lflag |= ECHO | ICANON;
             tcsetattr(STDIN_FILENO, TCSANOW, &term);
@@ -190,7 +193,8 @@ void CGame::start() {
 
 void CGame::end() {
     m_IsRunning = false;
-    if (m_Progtest.m_Deadline == 0 || m_Progtest.m_Attempts == m_Progtest.m_MaxAttempts) {
+    if (m_Progtest.m_Deadline == 0
+     || m_Progtest.m_Attempts == m_Progtest.m_MaxAttempts) {
         if(m_Progtest.m_Score >= 5.5) {
             std::cout << "Not today..." << std::endl <<
                       "  ________" << std::endl <<

@@ -8,6 +8,10 @@
 #include "../CBlock.h"
 
 
+/**
+ * Descendant of an abstract class CBlock.
+ * Implementation of the generator block.
+ */
 class CGeneratorBlock : public CBlock {
 public:
     /**
@@ -32,7 +36,8 @@ public:
      * @param pos Position of the block
      * @return Always false
      */
-    bool refresh(std::vector<std::vector<std::unique_ptr<CBlock>>> &map, SPos pos) override;
+    bool refresh(std::vector<std::vector<std::unique_ptr<CBlock>>> &map,
+                 SPos                                               pos) override;
 };
 
 

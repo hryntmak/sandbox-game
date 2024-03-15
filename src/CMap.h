@@ -25,6 +25,11 @@
 #define HRYNTMAK_CMAP_H
 
 
+/**
+ * Class of the game map.
+ * It has two-dimensional field of blocks,
+ * player and methods for interaction.
+ */
 class CMap {
 public:
     /**
@@ -35,7 +40,12 @@ public:
      * Construct Map with config from input stream.
      * @param in Input stream.
      */
-    explicit CMap(std::istream &in, CBlockAggregator aggregator);
+    explicit CMap(std::istream     &in,
+                  CBlockAggregator aggregator);
+    /**
+     * Set player on the map.
+     * @param player New player
+     */
     void setPlayer(CPlayer player);
     /**
      * Return unique pointer to the block ahead of the player
@@ -90,26 +100,27 @@ public:
      * @param map Map for print.
      * @return Reference to the output stream.
      */
-    friend std::ostream &operator<<(std::ostream &out, const CMap &map);
+    friend std::ostream &operator<<(std::ostream &out,
+                                    const CMap   &map);
 
 private:
-    /*
+    /**
      * A double vector of blocks implementing the map.
      */
     std::vector<std::vector<std::unique_ptr<CBlock>>> m_Map;
-    /*
+    /**
      * Player on the map.
      */
     CPlayer m_Player;
-    /*
+    /**
      * Position of player on the map.
      */
     SPos m_PlayerPosition;
-    /*
+    /**
      * Direction of player.
      */
     SPos m_PlayerDirection;
-    /*
+    /**
      * Aggregator for creating blocks using a configuration file
      */
     CBlockAggregator m_Aggregator;

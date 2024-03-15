@@ -6,8 +6,8 @@
 #include <string>
 #include <vector>
 #include <memory>
-#include "CState.h"
-#include "CProgtest.h"
+#include "SState.h"
+#include "SProgtest.h"
 #include "SPos.h"
 #include "CAction.h"
 
@@ -15,6 +15,9 @@
 #define HRYNTMAK_CBLOCK_H
 
 
+/**
+ * Abstract block class.
+ */
 class CBlock {
 public:
     /**
@@ -54,7 +57,8 @@ public:
      * @param pos Position of the block
      * @return True - block has changed the map next to the block. False - hasn't change the map
      */
-    virtual bool refresh(std::vector<std::vector<std::unique_ptr<CBlock>>> &map, SPos pos) = 0;
+    virtual bool refresh(std::vector<std::vector<std::unique_ptr<CBlock>>> &map,
+                         SPos                                               pos) = 0;
 
     /**
      * Uses the item(Block) and returns the action.
@@ -99,25 +103,27 @@ public:
      * @param player Block for print.
      * @return Reference to the output stream.
      */
-    friend std::ostream &operator<<(std::ostream &out, const CBlock &block);
+    friend std::ostream &operator<<(std::ostream &out,
+                                    const CBlock &block);
+
 protected:
-    /*
+    /**
      * Char icon of block.
      */
     char m_Icon;
-    /*
+    /**
      * Hardness of the block
      */
     int m_Hardness;
-    /*
+    /**
      * Amount of energy obtained by burning
      */
     int m_BurnEnergy;
-    /*
+    /**
      * Tool level for blocks that are used as a tool
      */
     int m_ToolLevel;
-    /*
+    /**
      * Flag, true - is solid, false - isn't solid
      */
     bool m_IsSolid;

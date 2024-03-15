@@ -19,5 +19,8 @@ bool SPos::operator!=(const SPos &other) const {
     return !((*this) == other);
 }
 
-SPos::SPos(int X, int Y) : x(X), y(Y) {}
+SPos::SPos(int X,
+           int Y)
+           : x(X),
+             y(Y) {}
 

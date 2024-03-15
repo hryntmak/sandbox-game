@@ -15,7 +15,8 @@ bool CBedBlock::update() {
     return false;
 }
 
-bool CBedBlock::refresh(std::vector<std::vector<std::unique_ptr<CBlock>>> &map, SPos pos) {
+bool CBedBlock::refresh(std::vector<std::vector<std::unique_ptr<CBlock>>> &map,
+                        SPos                                               pos) {
     return false;
 }
 

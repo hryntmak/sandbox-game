@@ -17,6 +17,7 @@ bool CAirBlock::update() {
     return false;
 }
 
-bool CAirBlock::refresh(std::vector<std::vector<std::unique_ptr<CBlock>>> &map, SPos pos) {
+bool CAirBlock::refresh(std::vector<std::vector<std::unique_ptr<CBlock>>> &map,
+                        SPos                                               pos) {
     return false;
 }

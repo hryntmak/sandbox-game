@@ -4,7 +4,7 @@
 
 #include "CSkipDay.h"
 
-bool CSkipDay::changeStats(CState &stats) {
+bool CSkipDay::changeStats(SState &stats) {
     stats.m_Energy += 30;
     if (stats.m_Energy > 100) {
         stats.m_Energy = 100;
@@ -13,7 +13,7 @@ bool CSkipDay::changeStats(CState &stats) {
     return true;
 }
 
-bool CSkipDay::changeProgtest(CProgtest &progtest) {
+bool CSkipDay::changeProgtest(SProgtest &progtest) {
     progtest.m_Deadline--;
     return true;
 }

@@ -20,6 +20,10 @@
 #define HRYNTMAK_CBLOCKAGGREGATOR_H
 
 
+/**
+ * Support class for working with the configuration file.
+ * Creates blocks by getting chars from the configuration file.
+ */
 class CBlockAggregator {
 public:
     /**
@@ -52,6 +56,9 @@ public:
      */
     void printConfig(std::ostream &out) const;
 private:
+    /**
+     * Tool level of pickaxe, that use to create pickaxe block 
+     */
     int m_PickaxeToolLevel;
 };
 

@@ -8,6 +8,10 @@
 #define HRYNTMAK_CBURN_H
 
 
+/**
+ * Descendant of an abstract class CAction.
+ * Implements adding electricity.
+ */
 class CBurn : public CAction {
 public:
     /**
@@ -21,14 +25,17 @@ public:
      * @param stats Reference to the changing stats
      * @return Success of the action.
      */
-    bool changeStats(CState &stats) override;
+    bool changeStats(SState &stats) override;
     /**
      * Does nothing.
      * @param progtest Reference to the changing progtest
      * @return Always false.
      */
-    bool changeProgtest(CProgtest &progtest) override;
+    bool changeProgtest(SProgtest &progtest) override;
 private:
+    /**
+     * Amount of electricity, that will be added.
+     */
     int m_Electricity;
 };
 

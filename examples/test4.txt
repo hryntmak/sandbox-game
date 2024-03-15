@@ -1,0 +1,33 @@
+map:
++------------------+
+|  ~~  ###         |
+|           CGB    |
+|ttT               |
+|TTt    ^      @@RR|
+|Ttt          R@@RR|
+|     #    .?R  RRR|
+|    #~#   .?R  ##x|
++------------------+
+
+player:
+Inventory         = { / @ R }
+ActiveItem        = 0
+
+progtest:
+Complexity        = 1
+Score             = asdfas
+CheatingSuspicion = 0
+Progress          = 0.5
+Deadline          = 7
+Attempts          = 0
+MaxAttempts       = 20
+RedFlag           = 0
+
+stats:
+Lives             = 10
+Energy            = 100
+Electricity       = 100
+ProgrammingLevel  = 1
+
+pickaxe:
+pickaxeToolLevel  = 5

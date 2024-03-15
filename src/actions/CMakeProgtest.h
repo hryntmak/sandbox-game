@@ -8,6 +8,10 @@
 #define HRYNTMAK_CMAKEPROGTEST_H
 
 
+/**
+ * Descendant of an abstract class CAction.
+ * Implements making progtest.
+ */
 class CMakeProgtest : public CAction {
 public:
     /**
@@ -22,21 +26,22 @@ public:
      * @param progtest Reference to the changing progtest
      * @return Success of the action
      */
-    bool activate(CState &stats, CProgtest &progtest) override;
+    bool activate(SState    &stats,
+                  SProgtest &progtest) override;
     /**
      * If can - take away amount of electricity.
      * @param stats Reference to the changing stats
      * @return Success of  the action.
      */
-    bool changeStats(CState &stats) override;
+    bool changeStats(SState &stats) override;
     /**
      * Does nothing.
      * @param progtest Reference to the changing progtest
      * @return Always true.
      */
-    bool changeProgtest(CProgtest &progtest) override;
+    bool changeProgtest(SProgtest &progtest) override;
 private:
-    /*
+    /**
      * Amount of electricity, that will be used for work on progtest.
      */
     int m_ElectricityCost;

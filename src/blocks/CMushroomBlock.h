@@ -7,6 +7,12 @@
 #ifndef HRYNTMAK_CMUSHROOMBLOCK_H
 #define HRYNTMAK_CMUSHROOMBLOCK_H
 
+
+/**
+ * Descendant of an abstract class CBlock.
+ * Implementation of the mushroom block.
+ * Can grow up and be eaten.
+ */
 class CMushroomBlock : public CBlock {
 public:
     /**
@@ -46,9 +52,10 @@ public:
      * @param pos Position of the block
      * @return Always false
      */
-    bool refresh(std::vector<std::vector<std::unique_ptr<CBlock>>> &map, SPos pos) override;
+    bool refresh(std::vector<std::vector<std::unique_ptr<CBlock>>> &map,
+                 SPos                                               pos) override;
 private:
-    /*
+    /**
      * Number of days before the tree grows
      */
     int m_DayToGrowUp;

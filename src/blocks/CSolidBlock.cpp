@@ -22,6 +22,7 @@ bool CSolidBlock::update() {
     return false;
 }
 
-bool CSolidBlock::refresh(std::vector<std::vector<std::unique_ptr<CBlock>>> &map, SPos pos) {
+bool CSolidBlock::refresh(std::vector<std::vector<std::unique_ptr<CBlock>>> &map,
+                          SPos                                               pos) {
     return false;
 }

@@ -10,65 +10,90 @@
 CMap::CMap() = default;
 
 CMap::CMap(std::istream &in, CBlockAggregator aggregator) : m_Aggregator(aggregator) {
+    bool isComputer  = false; // Is computer on the map
+    bool isGenerator = false; // Is generator on the map
+    bool isBed       = false; // Is bed on the map
+    bool isPlayer    = false; // Is player on the map
     std::string line;
-    int mapLength = 0;
+    size_t mapLength = 0;
     int row = -1;
     char c;
     in >> c;
-    if (c != '+')
-        throw std::logic_error("Excepted '+' in the map configuration.");
-    m_Map.emplace_back();
+    if (c != '+') throw std::logic_error("Excepted '+' in the map configuration.");
+
+    m_Map.emplace_back(); // add new row
     row++;
+
     m_Map[row].emplace_back(m_Aggregator.creatBlock(c,
                             m_PlayerPosition,
                             m_PlayerDirection,
-                            {mapLength, row}));
+                            SPos(mapLength, row)));
     std::getline(in, line);
     for (char ch : line) {
-        if (ch == '+') {
+        if (ch == '+') { // End of the row
             m_Map[row].emplace_back(m_Aggregator.creatBlock(ch,
                                     m_PlayerPosition,
                                     m_PlayerDirection,
-                                    {mapLength, row}));
+                                    SPos(mapLength, row)));
             break;
         }
         mapLength++;
-        if (ch != '-')
-            throw std::logic_error("Excepted '-' in the map configuration.");
+
+        if (ch != '-') throw std::logic_error("Excepted '-' in the map configuration.");
+
         m_Map[row].emplace_back(m_Aggregator.creatBlock(ch,
                                 m_PlayerPosition,
                                 m_PlayerDirection,
-                                {mapLength, row}));
+                                SPos(mapLength, row)));
     }
-    if (line[mapLength] != '+')
-        throw std::logic_error("Excepted '+' on the end of the map configuration.");
+
+    if (line[mapLength] != '+') throw std::logic_error("Excepted '+' on the end of the map configuration.");
+
     while (true) {
-        m_Map.emplace_back();
+        m_Map.emplace_back(); // Add new row
         row++;
         std::getline(in, line);
-        if (line.size() >= mapLength + 2 && line[0] == '|') {
-            for (int column = 0; column < mapLength + 1; ++column) {
+        if (line.size() >= mapLength + 2
+         && line[0]     == '|') {
+            for (size_t column = 0; column < mapLength + 1; ++column) {
+                if (line[column] == 'C') isComputer  = true;
+                if (line[column] == 'G') isGenerator = true;
+                if (line[column] == 'B') isBed       = true;
+                if (line[column] == '>'
+                 || line[column] == '<'
+                 || line[column] == 'v'
+                 || line[column] == '^') {
+                    if (isPlayer) throw std::logic_error("Second player ont the map.");
+                    isPlayer = true;
+                }
                 m_Map[row].emplace_back(m_Aggregator.creatBlock(line[column],
                                                                 m_PlayerPosition,
                                                                 m_PlayerDirection,
-                                                                {column, row}));
+                                                                SPos(column, row)));
             }
             if (line[mapLength + 1] != '|')
                 throw std::logic_error("Excepted '|' on the end of line in the map configuration.");
             m_Map[row].emplace_back(m_Aggregator.creatBlock(line[mapLength + 1],
                                                             m_PlayerPosition,
                                                             m_PlayerDirection,
-                                                            {0, row}));
-        } else if (line.size() >= mapLength + 2 && line[0] == '+' && row != 1) {
-            line.resize(mapLength + 2);
+                                                            SPos(0, row)));
+        } else if (line.size() >= mapLength + 2
+                && line[0]     == '+'
+                && row         != 1) {
+            line.resize(mapLength + 2); // If there are comments to the right of the map
             if (line != "+" + std::string(mapLength, '-') + "+")
                 throw std::logic_error("Excepted end line of the map configuration.");
-            for (int i = 0; i < mapLength + 2; i++) {
+            for (size_t i = 0; i < mapLength + 2; i++) {
                 m_Map[row].emplace_back(m_Aggregator.creatBlock(line[i],
                                                                 m_PlayerPosition,
                                                                 m_PlayerDirection,
-                                                                {0, row}));
+                                                                SPos(0, row)));
             }
+            if (!isComputer
+             || !isGenerator
+             || !isBed) throw std::logic_error("There is no computer, generator or bed on the map");
+            if (m_PlayerDirection == SPos(0,0))
+                throw std::logic_error("There is no player on the map");
             std::cout << "Map has been configured." << std::endl;
             return;
         } else
@@ -104,10 +129,12 @@ std::unique_ptr<CAction> CMap::move(SPos direction) {
         m_Player.setDirection(direction);
         return std::make_unique<CEnergyAction>(0); // Don't spend energy, when turning around
     }
-    SPos blockPos = m_PlayerPosition + m_PlayerDirection;
+
     if (getBlockAhead()->isSolid())
         return std::make_unique<CEnergyAction>(0);
-    m_PlayerPosition = blockPos;
+
+    m_PlayerPosition = m_PlayerPosition + m_PlayerDirection;
+
     return std::make_unique<CEnergyAction>(roll(gen) == 0 ? -1 : 0);
 }
 
@@ -125,8 +152,8 @@ void CMap::update() {
 }
 
 void CMap::refresh() {
-    for (int y = 0; y < m_Map.size(); ++y) {
-        for (int x = 0; x < m_Map[y].size(); ++x) {
+    for (size_t y = 0; y < m_Map.size(); ++y) {
+        for (size_t x = 0; x < m_Map[y].size(); ++x) {
             m_Map[y][x]->refresh(m_Map, SPos(x, y));
         }
     }
@@ -140,9 +167,10 @@ void CMap::setPlayer(CPlayer player) {
     m_Player = std::move(player);
 }
 
-std::ostream &operator<<(std::ostream &out, const CMap &map) {
-    for (int y = 0; y < map.m_Map.size(); ++y) {
-        for (int x = 0; x < map.m_Map[y].size(); ++x) {
+std::ostream &operator<<(std::ostream &out,
+                         const CMap   &map) {
+    for (size_t y = 0; y < map.m_Map.size(); ++y) {
+        for (size_t x = 0; x < map.m_Map[y].size(); ++x) {
             if ( map.m_PlayerPosition == SPos(x, y) ) {
                 map.m_Player.print(out);
                 continue;
@@ -156,8 +184,8 @@ std::ostream &operator<<(std::ostream &out, const CMap &map) {
 }
 
 void CMap::printConfig(std::ostream &out) const {
-    for (int y = 0; y < m_Map.size(); ++y) {
-        for (int x = 0; x < m_Map[y].size(); ++x) {
+    for (size_t y = 0; y < m_Map.size(); ++y) {
+        for (size_t x = 0; x < m_Map[y].size(); ++x) {
             if ( m_PlayerPosition == SPos(x, y) ) {
                 m_Player.print(out);
                 continue;

@@ -23,7 +23,10 @@ CBlockAggregator::CBlockAggregator(const std::string & configFile) : m_PickaxeTo
 }
 
 std::unique_ptr<CBlock>
-CBlockAggregator::creatBlock(char c, SPos &playerPosition, SPos &playerDirection, SPos actualPosition) {
+CBlockAggregator::creatBlock(char c,
+                             SPos &playerPosition,
+                             SPos &playerDirection,
+                             SPos actualPosition) {
     switch (c) {
         case ' ': // Air
             return std::make_unique<CAirBlock>();
@@ -35,19 +38,19 @@ CBlockAggregator::creatBlock(char c, SPos &playerPosition, SPos &playerDirection
             return std::make_unique<CBedBlock>();
         case '^': // Player
             playerPosition = actualPosition;
-            playerDirection = {0,-1}; // up
+            playerDirection = SPos(0,-1); // up
             return std::make_unique<CAirBlock>();
         case 'v': // Player
             playerPosition = actualPosition;
-            playerDirection = {0,1}; // down
+            playerDirection = SPos(0,1); // down
             return std::make_unique<CAirBlock>();
         case '>': // Player
             playerPosition = actualPosition;
-            playerDirection = {1,0}; // right
+            playerDirection = SPos(1,0); // right
             return std::make_unique<CAirBlock>();
         case '<': // Player
             playerPosition = actualPosition;
-            playerDirection = {-1,0}; // left
+            playerDirection = SPos(-1,0); // left
             return std::make_unique<CAirBlock>();
         case '-':
         case '+': // map border
@@ -76,7 +79,7 @@ CBlockAggregator::creatBlock(char c, SPos &playerPosition, SPos &playerDirection
         case 'x': // Corruption
             return std::make_unique<CCorruptionBlock>();
         default:
-            throw std::logic_error("An unknown block was received");
+            throw std::logic_error("An unknown block was received.");
     }
 }
 

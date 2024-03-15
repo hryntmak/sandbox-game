@@ -26,48 +26,44 @@ bool CConfig::isInteger(const std::string &str) {
     return true;
 }
 
-int CConfig::getInteger(std::istream &in, const std::string & expected, int max) {
+int CConfig::getInteger(std::istream      &in,
+                        const std::string &expected,
+                        int                max) {
     std::string str;
 
     in >> str;
-    if (str != expected)
-        throw std::logic_error("Expected '" + expected + "' in the config file.");
+    if (str != expected) throw std::logic_error("Expected '" + expected + "' in the config file.");
 
     in >> str;
-    if (str != "=")
-        throw std::logic_error("Expected '='.");
+    if (str != "=")      throw std::logic_error("Expected '='.");
 
     in >> str;
-    if (!isInteger(str))
-        throw std::logic_error("Expected integer.");
-    if(str.size() > 7)
-        throw std::logic_error("Too big number in the configuration of \"" + expected + "\".");
+    if (!isInteger(str)) throw std::logic_error("Expected unsigned integer.");
+
+    if(str.size() > 7)   throw std::logic_error("Too big number in the configuration of \"" + expected + "\".");
+
     int n = std::stoi(str);
-
-    if (n > max)
-        throw std::logic_error("Too big number in the configuration of \"" + expected + "\".");
+    if (n > max)         throw std::logic_error("Too big number in the configuration of \"" + expected + "\".");
 
     return n;
 }
 
-double CConfig::getDouble(std::istream &in, const std::string & expected, double max) {
+double CConfig::getDouble(std::istream      &in,
+                          const std::string &expected,
+                          double             max) {
     std::string str;
 
     in >> str;
-    if (str != expected)
-        throw std::logic_error("Bad progtest config.");
+    if (str != expected) throw std::logic_error("Bad progtest config.");
 
     in >> str;
-    if (str != "=")
-        throw std::logic_error("Expected '='.");
+    if (str != "=")      throw std::logic_error("Expected '='.");
 
     in >> str;
-    if (!isDouble(str))
-        throw std::logic_error("Expected double.");
+    if (!isDouble(str))  throw std::logic_error("Expected unsigned double.");
 
     double d = std::stod(str);
-    if (d > max)
-        throw std::logic_error("Too big number in the configuration of \"" + expected + "\".");
+    if (d > max)         throw std::logic_error("Too big number in the configuration of \"" + expected + "\".");
 
     return d;
 }

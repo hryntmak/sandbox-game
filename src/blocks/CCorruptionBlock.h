@@ -8,6 +8,11 @@
 #define HRYNTMAK_CCORRUPTIONBLOCK_H
 
 
+/**
+ * Descendant of an abstract class CBlock.
+ * Implementation of the corruption block.
+ * Can spread with 5% chance and deal damage, if player contact it.
+ */
 class CCorruptionBlock : public CBlock {
 public:
     /**
@@ -22,7 +27,7 @@ public:
     std::unique_ptr<CAction> action(std::unique_ptr<CBlock> &activeItem) override;
     /**
      * Does nothing.
-     * @return Always false.
+     * @return Always true.
      */
     bool update() override;
     /**
@@ -33,7 +38,8 @@ public:
      * @param pos Position of the block
      * @return True - Corruption has spread. False - Corruption hasn't change the map
      */
-    bool refresh(std::vector<std::vector<std::unique_ptr<CBlock>>> &map, SPos pos) override;
+    bool refresh(std::vector<std::vector<std::unique_ptr<CBlock>>> &map,
+                 SPos                                               pos) override;
 };
 
 

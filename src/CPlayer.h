@@ -6,7 +6,7 @@
 #include <memory>
 #include <vector>
 #include <string>
-#include "CState.h"
+#include "SState.h"
 #include "CBlock.h"
 #include "CBlockAggregator.h"
 
@@ -14,6 +14,10 @@
 #define HRYNTMAK_CPLAYER_H
 
 
+/**
+ * Class of Player with own inventory
+ * and methods for interaction with blocks.
+ */
 class CPlayer {
 public:
     /**
@@ -24,7 +28,8 @@ public:
      * Construct CPlayer with configurations from input stream
      * @param in Input stream with configurations
      */
-    explicit CPlayer(std::istream &in, CBlockAggregator aggregator);
+    explicit CPlayer(std::istream     &in,
+                     CBlockAggregator aggregator);
     /**
      * Mine block. If can save it in the inventory
      * and replace the received block with CAirBlock.
@@ -37,7 +42,8 @@ public:
      * @param block Unique pointer to the block ahead of the player
      * @return Action with block, which can be activate
      */
-    std::unique_ptr<CAction> action(const std::unique_ptr<CBlock> & block, bool steppedOn);
+    std::unique_ptr<CAction> action(const std::unique_ptr<CBlock> & block,
+                                    bool                            steppedOn);
     /**
      * If can replace the received block with active block in the player inventory.
      * @param block Unique pointer to the block ahead of the player
@@ -49,9 +55,13 @@ public:
      * @param direction New direction
      */
     void setDirection(const SPos &direction);
+    /**
+     * Set the index of active item in the player inventory.
+     * @param n New index of active item in the player inventory
+     */
     void setActiveItem(int n);
     /**
-     * Print player
+     * Print player.
      * @param out Output stream
      */
     void print(std::ostream &out) const;
@@ -66,25 +76,26 @@ public:
      * @param player Player for print.
      * @return Reference to the output stream.
      */
-    friend std::ostream &operator<<(std::ostream &out, const CPlayer &player);
+    friend std::ostream &operator<<(std::ostream  &out,
+                                    const CPlayer &player);
 private:
-    /*
+    /**
      * Color of player icon.
      */
     std::string m_Color;
-    /*
+    /**
      * Player icon.
      */
     char m_Icon;
-    /*
+    /**
      * PLayer inventory.
      */
     std::unique_ptr<CBlock> m_Inventory[5];
-    /*
+    /**
      * Index of active item in the player inventory.
      */
     int m_ActiveItem;
-    /*
+    /**
      * Aggregator for creating blocks using a configuration file
      */
     CBlockAggregator m_Aggregator;

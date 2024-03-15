@@ -18,6 +18,7 @@ bool CGeneratorBlock::update() {
     return false;
 }
 
-bool CGeneratorBlock::refresh(std::vector<std::vector<std::unique_ptr<CBlock>>> &map, SPos pos) {
+bool CGeneratorBlock::refresh(std::vector<std::vector<std::unique_ptr<CBlock>>> &map,
+                              SPos                                               pos) {
     return false;
 }

@@ -4,10 +4,10 @@
 
 #include "CNoAction.h"
 
-bool CNoAction::changeStats(CState &stats) {
+bool CNoAction::changeStats(SState &stats) {
     return false;
 }
 
-bool CNoAction::changeProgtest(CProgtest &progtest) {
+bool CNoAction::changeProgtest(SProgtest &progtest) {
     return false;
 }

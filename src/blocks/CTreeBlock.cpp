@@ -5,9 +5,11 @@
 #include "CTreeBlock.h"
 #include "../actions/CNoAction.h"
 
-CTreeBlock::CTreeBlock() : CBlock('t', 0, 5, 0, false), m_DayToGrowUp(3) {}
+CTreeBlock::CTreeBlock() : CBlock('t', 0, 5, 0, false),
+                           m_DayToGrowUp(3) {}
 
-CTreeBlock::CTreeBlock(char c) : CBlock(c, 0, 5, 0, true), m_DayToGrowUp(3) {
+CTreeBlock::CTreeBlock(char c) : CBlock(c, 0, 5, 0, true),
+                                 m_DayToGrowUp(3) {
     if (c == 'T') {
         m_DayToGrowUp = 0;
         update();
@@ -29,6 +31,7 @@ bool CTreeBlock::update() {
     return true;
 }
 
-bool CTreeBlock::refresh(std::vector<std::vector<std::unique_ptr<CBlock>>> &map, SPos pos) {
+bool CTreeBlock::refresh(std::vector<std::vector<std::unique_ptr<CBlock>>> &map,
+                         SPos                                               pos) {
     return false;
 }

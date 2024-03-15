@@ -6,18 +6,19 @@
 
 CMakeProgtest::CMakeProgtest(int electricityCost): m_ElectricityCost(electricityCost) {}
 
-bool CMakeProgtest::changeStats(CState &stats) {
+bool CMakeProgtest::changeStats(SState &stats) {
     if (stats.m_Electricity < m_ElectricityCost)
         m_ElectricityCost = stats.m_Electricity;
     stats.m_Electricity -= m_ElectricityCost;
     return true;
 }
 
-bool CMakeProgtest::changeProgtest(CProgtest &progtest) {
+bool CMakeProgtest::changeProgtest(SProgtest &progtest) {
     return true;
 }
 
-bool CMakeProgtest::activate(CState &stats, CProgtest &progtest) {
+bool CMakeProgtest::activate(SState    &stats,
+                             SProgtest &progtest) {
     if (!changeStats(stats))
         return false;
     progtest.m_Progress += progtest.m_Complexity * stats.m_ProgrammingLevel * m_ElectricityCost / 2;

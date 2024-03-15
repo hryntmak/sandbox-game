@@ -23,7 +23,8 @@ bool CWaterBlock::update() {
     return false;
 }
 
-bool CWaterBlock::refresh(std::vector<std::vector<std::unique_ptr<CBlock>>> &map, SPos pos) {
+bool CWaterBlock::refresh(std::vector<std::vector<std::unique_ptr<CBlock>>> &map,
+                          SPos                                               pos) {
     if (m_SourcePower == 0)
         return false;
 

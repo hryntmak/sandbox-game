@@ -2,20 +2,20 @@ map:
 +------------------+
 |  ~~  ###         |
 |           CGB    |
-|  T               |
-|       ^      @@  |
-|  t           @@  |
-|     #     ?   R T|
-|    #~#    ?    #x|
+|ttT               |
+|TTt    ^      @@RR|
+|Ttt          R@@RR|
+|     #    .?R  RRR|
+|    #~#   .?R  ##x|
 +------------------+
 
 player:
-Inventory         = { / @ }
+Inventory         = { / @ R }
 ActiveItem        = 0
 
 progtest:
 Complexity        = 1
-Score             = 0
+Score             = 5.5
 CheatingSuspicion = 0
 Progress          = 0.5
 Deadline          = 7
@@ -30,4 +30,4 @@ Electricity       = 100
 ProgrammingLevel  = 1
 
 pickaxe:
-pickaxeToolLevel  = 1
+pickaxeToolLevel  = 5

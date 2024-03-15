@@ -41,7 +41,8 @@ void CBlock::printConfig(std::ostream &out) const {
     out << m_Icon;
 }
 
-std::ostream &operator<<(std::ostream &out, const CBlock &block) {
+std::ostream &operator<<(std::ostream &out,
+                         const CBlock &block) {
     out << block.m_Icon;
     return out;
 }
